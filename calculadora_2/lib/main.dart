@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 void main(){
   runApp(MaterialApp(
-    home: Home(),
+    home: Home()
   ));
       
 }
@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
           IconButton(onPressed: (){}, icon: Icon(Icons.refresh))
         ],
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -34,10 +34,18 @@ class _HomeState extends State<Home> {
           TextField(keyboardType: TextInputType.number,
           decoration: InputDecoration(
             labelText: "Peso em Kg",
-            labelStyle: TextStyle(color: Colors.white)
+            labelStyle: TextStyle(color: Colors.black)
           ),
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 25.0),
+            style: TextStyle(color: Colors.black, fontSize: 20.0),
+          ),
+          TextField(keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+                labelText: "Altura em cm",
+                labelStyle: TextStyle(color: Colors.black,fontSize: 19.0)
+            ),
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.black, fontSize: 20.0),
           )
         ]
       )
