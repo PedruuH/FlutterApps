@@ -19,19 +19,19 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Calculadora de IMC"),
+        title: const Text("Calculadora de IMC"),
         centerTitle: true,
         backgroundColor: Colors.blueGrey,
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.refresh))
+          IconButton(onPressed: (){}, icon: const Icon(Icons.refresh))
         ],
       ),
       backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Icon(Icons.person, size: 120.0),
-          TextField(keyboardType: TextInputType.number,
+          const Icon(Icons.person, size: 120.0),
+          const TextField(keyboardType: TextInputType.number,
           decoration: InputDecoration(
             labelText: "Peso em Kg",
             labelStyle: TextStyle(color: Colors.black)
@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
             textAlign: TextAlign.center,
             style: TextStyle(color: Colors.black, fontSize: 20.0),
           ),
-          TextField(keyboardType: TextInputType.number,
+          const TextField(keyboardType: TextInputType.number,
             decoration: InputDecoration(
                 labelText: "Altura em cm",
                 labelStyle: TextStyle(color: Colors.black,fontSize: 19.0)
