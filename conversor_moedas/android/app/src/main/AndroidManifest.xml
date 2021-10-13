@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.calculadora_2">
+    package="com.pedroh.conversor_moedas">
    <application
-        android:label="IMC Calculator"
+        android:label="conversor_moedas"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

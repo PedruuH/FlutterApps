@@ -95,7 +95,7 @@ class _HomeState extends State<Home> {
                             color: Colors.black, fontSize: 20.0),
                         controller: alturaController,
                         validator: (value) {
-                          if (value==null || value.isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return "Insira um dado";
                           }
                           return null;
@@ -118,10 +118,10 @@ class _HomeState extends State<Home> {
                                     style: TextStyle(fontSize: 15.0),
                                   ),
                                   style: ElevatedButton.styleFrom(
-                                      primary: Colors.green)))),
+                                      primary: Colors.blue)))),
                       Text(_infoText,
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.green, fontSize: 25.0))
+                          style: TextStyle(color: Colors.blue, fontSize: 25.0))
                     ]))));
   }
 }
