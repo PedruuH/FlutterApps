@@ -79,7 +79,7 @@ class _HomeState extends State<Home> {
                         controller: pesoController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Insira um dado";
+                            return "Insira um peso";
                           }
                           return null;
                         },
@@ -96,7 +96,7 @@ class _HomeState extends State<Home> {
                         controller: alturaController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Insira um dado";
+                            return "Insira uma altura";
                           }
                           return null;
                         },

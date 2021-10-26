@@ -35,19 +35,44 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late double dolar;
-  late double euro;
+  late double dolares;
+  late double euros;
+
+  TextEditingController reaisController = TextEditingController();
+  TextEditingController dolarController = TextEditingController();
+  TextEditingController euroController = TextEditingController();
+
+  void _realChanged(String text){
+    double real = double.parse(text);
+    euroController.text = (real/euros).toStringAsPrecision(4);
+    dolarController.text = (real/dolares).toStringAsPrecision(4);
+  }
+  void _euroChanged(String text){
+    double euro = double.parse(text);
+    reaisController.text = (euro* euros).toStringAsPrecision(4);
+    dolarController.text = (euro*euros/dolares).toStringAsPrecision(4);
+  }
+  void _dolarChanged(String text){
+    double dolar = double.parse(text);
+    euroController.text = (dolar*dolares/euros).toStringAsPrecision(4);
+    reaisController.text = (dolar*dolares).toStringAsPrecision(4);
+  }
+  void _resetFields()
+  {
+    euroController.text = "";
+    dolarController.text = "";
+    reaisController.text = "";
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: const Text("Conversor Moeda"),
-          centerTitle: true,
-          backgroundColor: Colors.amber,
-          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.refresh))],
-        ),
+            title: const Text("Conversor Moeda"),
+            centerTitle: true,
+            backgroundColor: Colors.amber,
+            actions: [IconButton(onPressed: _resetFields, icon: Icon(Icons.refresh))]),
         body: FutureBuilder<Map>(
             future: getData(),
             builder: (context, snapshot) {
@@ -66,58 +91,23 @@ class _HomeState extends State<Home> {
                                 TextStyle(color: Colors.amber, fontSize: 25.0),
                             textAlign: TextAlign.center));
                   } else {
-                    dolar = snapshot.requireData["results"]["currencies"]["USD"]
+                    dolares = snapshot.requireData["results"]["currencies"]["USD"]
                         ["buy"];
-                    euro = snapshot.requireData["results"]["currencies"]["EUR"]
+                    euros = snapshot.requireData["results"]["currencies"]["EUR"]
                         ["buy"];
+
                     return SingleChildScrollView(
                         padding: EdgeInsets.all(10.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
-                            Icon(Icons.monetization_on_outlined,
+                            const Icon(Icons.monetization_on_outlined,
                                 size: 150.0, color: Colors.amber),
-                            TextField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "Reais",
-                                labelStyle: TextStyle(color: Colors.amber),
-                                border: OutlineInputBorder(),
-                                prefixText: "R\$",
-                                prefixStyle: TextStyle(
-                                    color: Colors.amber, fontSize: 25.0),
-                              ),
-                              style: TextStyle(
-                                  color: Colors.amber, fontSize: 25.0),
-                            ),
+                            buildTextField("Reais", "R\$", reaisController, _realChanged),
                             Divider(),
-                            TextField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "Dolar",
-                                labelStyle: TextStyle(color: Colors.amber),
-                                border: OutlineInputBorder(),
-                                prefixText: "US\$",
-                                prefixStyle: TextStyle(
-                                    color: Colors.amber, fontSize: 25.0),
-                              ),
-                              style: TextStyle(
-                                  color: Colors.amber, fontSize: 25.0),
-                            ),
-                            const Divider(),
-                            TextField(
-                                keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "Euro",
-                                labelStyle: TextStyle(color: Colors.amber),
-                                border: OutlineInputBorder(),
-                                prefixText: "€",
-                                prefixStyle: TextStyle(
-                                    color: Colors.amber, fontSize: 25.0),
-                              ),
-                              style: TextStyle(
-                                  color: Colors.amber, fontSize: 25.0),
-                            ),
+                            buildTextField("Dólar", "US\$", dolarController, _dolarChanged),
+                            Divider(),
+                            buildTextField("Euro", "€", euroController, _euroChanged)
                           ],
                         ));
                   }
@@ -125,3 +115,20 @@ class _HomeState extends State<Home> {
             }));
   }
 }
+
+Widget buildTextField(String label, String prefix, TextEditingController c, Function fun)
+{return TextField(
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: TextStyle(color: Colors.amber),
+        border: OutlineInputBorder(),
+        prefixText: prefix,
+        prefixStyle: TextStyle(
+            color: Colors.amber, fontSize: 25.0),
+      ),
+      style: TextStyle(
+          color: Colors.amber, fontSize: 25.0),
+        controller: c,
+        onChanged: (String value){ fun(value);}
+    );}
