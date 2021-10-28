@@ -6,6 +6,7 @@ import 'dart:convert';
 const request =
     "https://api.hgbrasil.com/finance/quotations?format=json&key=a91b936b";
 
+
 void main() async {
   runApp(MaterialApp(
     home: Home(),
@@ -62,6 +63,7 @@ class _HomeState extends State<Home> {
     euroController.text = "";
     dolarController.text = "";
     reaisController.text = "";
+
   }
 
   @override
